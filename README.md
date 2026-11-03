@@ -63,7 +63,7 @@ libs/ui-design-system      Design Tokens CSS, tema Material 3, KPI card, chips, 
 Dependências permitidas (setas = "depende de"): `mfe → data-access → http-core → auth-security` e
 `mfe/shell → ui-design-system`. Nunca no sentido inverso (ver [ADR-001](./ADR-001-ARCHITECTURE.md)).
 
-## O que demonstrar (roteiro de 5 minutos)
+## Roteiro de 5 minutos
 
 Abra **http://localhost:4000** e use o **Painel de simulação de cenários** no topo:
 
