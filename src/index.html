@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <title>Stellar Banking · Investimentos</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!--
+      CSP (Content Security Policy) — defesa em profundidade contra XSS e clickjacking.
+
+      default-src 'self'            Tudo que não for listado só pode vir da própria origem.
+      script-src 'self'             Proíbe <script> inline e eval(): um XSS injetado não executa.
+                                    (O build de produção desliga o "inline critical CSS", que exigiria
+                                    handlers inline; o bloco <script type="application/json"> do
+                                    hydration/TransferState não é executável e é permitido.)
+      style-src 'self' 'unsafe-inline'  Angular Material aplica estilos dinâmicos via atributo style.
+      font-src 'self' data:         Roboto e Material Symbols são servidos localmente (sem CDN externo).
+      img-src 'self' data:          Imagens locais e data-URIs.
+      connect-src 'self'            XHR/fetch/WebSocket só para a própria origem (a API é /api/v1).
+      object-src 'none'             Bloqueia <object>/<embed> (plugins).
+      base-uri 'self'               Impede injeção de <base> para sequestrar URLs relativas.
+      form-action 'self'            Formulários só podem ser enviados à própria origem.
+      frame-src 'none'              O portal não embute iframes de terceiros.
+
+      OBSERVAÇÃO: `frame-ancestors` (quem pode embarcar ESTE app em <iframe>) e `X-Frame-Options`
+      NÃO funcionam em <meta>; por isso o servidor Express (src/server.ts) os envia como header HTTP,
+      alinhado à whitelist de origens do HostBridgeService.
+      Em `ng serve`, o live-reload usa WebSocket na mesma origem, coberto por 'self' nos navegadores atuais.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>

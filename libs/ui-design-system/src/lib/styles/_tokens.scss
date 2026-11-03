@@ -1,0 +1,122 @@
+/**
+ * @file Design Tokens corporativos (Private Banking: azul-marinho / dourado / esmeralda).
+ *
+ * Tokens são CSS Custom Properties: mudam em *runtime* (tema claro/escuro via `data-theme`) sem
+ * recompilar Sass e atravessam o encapsulamento de estilos dos componentes — por isso são a base do
+ * Design System. O Angular Material (M3) é mapeado sobre eles em `_material-theme.scss`.
+ */
+
+:root {
+  // ── Paleta base (primitivos) ─────────────────────────────────────────────
+  --inv-navy-950: #060f1e;
+  --inv-navy-900: #0a1b33;
+  --inv-navy-800: #0f2747;
+  --inv-navy-700: #153461;
+  --inv-navy-600: #1d4580;
+  --inv-navy-300: #8fb3ee;
+  --inv-navy-100: #dbe5f4;
+  --inv-navy-50: #eef3fa;
+
+  --inv-gold-700: #8a6d12;
+  --inv-gold-500: #c9a227;
+  --inv-gold-300: #e6cf84;
+  --inv-gold-100: #f7edc9;
+
+  --inv-emerald-700: #0f6f53;
+  --inv-emerald-500: #1f9d6b;
+  --inv-emerald-300: #5fd4a8;
+  --inv-emerald-100: #d4f1e6;
+
+  --inv-ruby-700: #b3261e;
+  --inv-ruby-300: #ffb4ab;
+  --inv-ruby-100: #fbdedb;
+
+  --inv-amber-700: #8f5600;
+  --inv-amber-300: #ffd37a;
+  --inv-amber-100: #ffecc7;
+
+  // ── Semânticos (tema claro) ─────────────────────────────────────────────
+  --inv-surface: #f4f7fb;
+  --inv-surface-raised: #ffffff;
+  --inv-surface-sunken: #e9eef6;
+  --inv-text: #0f1722;
+  --inv-text-muted: #455166;
+  --inv-border: #d3dae6;
+
+  --inv-primary: var(--inv-navy-700);
+  --inv-on-primary: #ffffff;
+  --inv-primary-container: var(--inv-navy-100);
+  --inv-on-primary-container: var(--inv-navy-900);
+
+  --inv-accent: var(--inv-gold-700);
+  --inv-accent-solid: var(--inv-gold-500);
+  --inv-on-accent: #1d1600;
+  --inv-accent-container: var(--inv-gold-100);
+
+  --inv-positive: var(--inv-emerald-700);
+  --inv-positive-container: var(--inv-emerald-100);
+  --inv-negative: var(--inv-ruby-700);
+  --inv-negative-container: var(--inv-ruby-100);
+  --inv-warning: var(--inv-amber-700);
+  --inv-warning-container: var(--inv-amber-100);
+
+  --inv-toolbar-bg: var(--inv-navy-900);
+  --inv-toolbar-text: #ffffff;
+  --inv-sidenav-bg: var(--inv-navy-800);
+  --inv-sidenav-text: #e8edf6;
+
+  // ── Escalas estruturais ─────────────────────────────────────────────────
+  --inv-space-1: 4px;
+  --inv-space-2: 8px;
+  --inv-space-3: 12px;
+  --inv-space-4: 16px;
+  --inv-space-5: 24px;
+  --inv-space-6: 32px;
+
+  --inv-radius-sm: 6px;
+  --inv-radius-md: 12px;
+  --inv-radius-lg: 20px;
+
+  --inv-shadow-1: 0 1px 2px rgb(10 27 51 / 12%), 0 1px 3px rgb(10 27 51 / 8%);
+  --inv-shadow-2: 0 4px 12px rgb(10 27 51 / 14%);
+
+  --inv-font-family: Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+:root[data-theme='dark'] {
+  --inv-surface: #0a1424;
+  --inv-surface-raised: #11223d;
+  --inv-surface-sunken: #0d1b31;
+  --inv-text: #e8edf6;
+  --inv-text-muted: #a9b6cb;
+  --inv-border: #274064;
+
+  --inv-primary: var(--inv-navy-300);
+  --inv-on-primary: #0a1b33;
+  --inv-primary-container: var(--inv-navy-600);
+  --inv-on-primary-container: var(--inv-navy-100);
+
+  --inv-accent: var(--inv-gold-300);
+  --inv-accent-container: #3a3010;
+  --inv-on-accent: #1d1600;
+
+  --inv-positive: var(--inv-emerald-300);
+  --inv-positive-container: #0f3a2c;
+  --inv-negative: var(--inv-ruby-300);
+  --inv-negative-container: #4a1713;
+  --inv-warning: var(--inv-amber-300);
+  --inv-warning-container: #3d2a05;
+
+  --inv-toolbar-bg: var(--inv-navy-950);
+  --inv-sidenav-bg: #0b1a30;
+
+  --inv-shadow-1: 0 1px 2px rgb(0 0 0 / 40%);
+  --inv-shadow-2: 0 4px 12px rgb(0 0 0 / 45%);
+}
+
+body {
+  margin: 0;
+  font-family: var(--inv-font-family);
+  background: var(--inv-surface);
+  color: var(--inv-text);
+}

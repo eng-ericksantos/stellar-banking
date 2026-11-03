@@ -1,0 +1,45 @@
+@use '@angular/material' as mat;
+
+// Tema Material 3 (CDK + componentes) mapeado sobre os Design Tokens `--inv-*`.
+// `theme-type: color-scheme` faz o Material usar `light-dark()`, controlado pela propriedade
+// CSS `color-scheme` — que o shell alterna via `data-theme` no <html>.
+html {
+  color-scheme: light;
+
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$yellow-palette,
+        theme-type: color-scheme,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+
+  // Sobrescreve tokens de sistema do M3 com a identidade visual corporativa.
+  @include mat.theme-overrides(
+    (
+      primary: var(--inv-primary),
+      on-primary: var(--inv-on-primary),
+      primary-container: var(--inv-primary-container),
+      on-primary-container: var(--inv-on-primary-container),
+      tertiary: var(--inv-accent),
+      on-tertiary: var(--inv-on-accent),
+      tertiary-container: var(--inv-accent-container),
+      on-tertiary-container: var(--inv-text),
+      surface: var(--inv-surface),
+      on-surface: var(--inv-text),
+      on-surface-variant: var(--inv-text-muted),
+      surface-container: var(--inv-surface-raised),
+      surface-container-low: var(--inv-surface-raised),
+      surface-container-high: var(--inv-surface-raised),
+      outline-variant: var(--inv-border),
+    )
+  );
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+}

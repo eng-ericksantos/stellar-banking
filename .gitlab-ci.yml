@@ -1,0 +1,89 @@
+# Pipeline GitLab CI — Stellar Banking (Angular 22, SSR, monorepo estilo Nx)
+#
+# Estágios: install → lint → test (gate de coverage) → build:ssr → bundle-budget-check → security-audit
+# O diretório node_modules é produzido uma única vez (install) e repassado como artifact aos demais jobs,
+# evitando reinstalar dependências em cada estágio. Cache do npm acelera execuções subsequentes.
+
+stages:
+  - install
+  - lint
+  - test
+  - build
+  - bundle-budget-check
+  - security-audit
+
+default:
+  image: node:24-bookworm-slim
+  interruptible: true
+
+variables:
+  NPM_CONFIG_CACHE: "$CI_PROJECT_DIR/.npm"
+  NG_CLI_ANALYTICS: "false"
+  # Limite do bundle inicial (gzip) verificado por scripts/check-bundle-budget.mjs
+  BUNDLE_BUDGET_KB: "250"
+
+cache:
+  key:
+    files:
+      - package-lock.json
+  paths:
+    - .npm/
+
+install:
+  stage: install
+  script:
+    - npm ci --prefer-offline --no-audit --no-fund
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - node_modules/
+
+lint:
+  stage: lint
+  needs: [install]
+  script:
+    - npm run lint
+
+# Testes unitários (Vitest via Angular CLI) com GATE de cobertura: os limites estão em
+# angular.json > test > options > coverageThresholds; se não forem atingidos, o job falha.
+test:
+  stage: test
+  needs: [install]
+  script:
+    - npm run test:ci
+  coverage: '/Statements\s*:\s*(\d+(?:\.\d+)?)%/'
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths:
+      - coverage/
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/**/cobertura-coverage.xml
+
+# Build de produção com SSR. Os `budgets` do angular.json (initial/anyScript/anyComponentStyle)
+# fazem o build FALHAR ao exceder os limites de erro.
+build:ssr:
+  stage: build
+  needs: [install]
+  script:
+    - npm run build:ssr
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - dist/
+
+bundle-budget-check:
+  stage: bundle-budget-check
+  needs: ["build:ssr"]
+  script:
+    - npm run bundle:check
+
+# Auditoria de dependências de produção (falha em vulnerabilidades de severidade alta ou crítica).
+security-audit:
+  stage: security-audit
+  needs: []
+  script:
+    - npm run audit:security
+  allow_failure: false

@@ -1,0 +1,36 @@
+@use '../libs/ui-design-system/src/lib/styles/tokens';
+@use '../libs/ui-design-system/src/lib/styles/material-theme';
+
+html,
+body {
+  height: 100%;
+}
+
+// Utilitário de acessibilidade: texto apenas para leitores de tela.
+.inv-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+// Snackbars dos interceptors usam as cores semânticas do Design System.
+.inv-snack-warn {
+  --mat-snack-bar-container-color: var(--inv-warning-container);
+  --mat-snack-bar-supporting-text-color: var(--inv-text);
+  --mat-snack-bar-button-color: var(--inv-warning);
+}
+
+.inv-snack-error {
+  --mat-snack-bar-container-color: var(--inv-negative-container);
+  --mat-snack-bar-supporting-text-color: var(--inv-text);
+  --mat-snack-bar-button-color: var(--inv-negative);
+}
+
+.inv-snack-success {
+  --mat-snack-bar-container-color: var(--inv-positive-container);
+  --mat-snack-bar-supporting-text-color: var(--inv-text);
+  --mat-snack-bar-button-color: var(--inv-positive);
+}
